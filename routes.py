@@ -19,10 +19,18 @@ def contact():
     return render_template("contact.html",title="Contact")
 
 
-@app.route('/movies')
-def movies():
-    return render_template("movies.html",title="movies")
-
+@app.route('/movies/<int:id>')
+def movie(id):
+    conn = sqlite3.connect('Database/Final.db')
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM Movie WHERE id=?',(id,))
+    Raiting = cur.fetchone()
+    cur.execute('SELECT * FROM Raiting WHERE id=?',(movie[4],))
+    Movie = cur.fetchone()
+    cur.execute('SELECT * FROM Movie WHERE id=?',(movie[3],))
+    review = cur.fetchone()
+    cur.execute('SELECT * FROM review WHERE id=?',(movie[3],))
+    return render_template('movies.html', movie=movie,rating=rating,review=review)
 
 if __name__ == "__main__":
     app.run(debug=True)
