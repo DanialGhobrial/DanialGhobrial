@@ -1,4 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<h2>{{movies}}</h2><p>{{movies[1]}}</p><p>{{movies[3]}}</p>
+{% for movies in movies%}
+   <h2><a href="/movies/{{movies[0]}}">{{movies[1]}}</a></h2><p>{{movies[3]}}</p>
+{% endfor %}
 {% endblock %}
