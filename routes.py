@@ -27,17 +27,20 @@ def movies():
     movies = cur.fetchall()
     return render_template('movies.html', movies=movies)
 
-@app.route('/movies_detail/<int:id>')
+@app.route('/movie_detail/<int:id>')
 def movies_detail(id):
     conn = sqlite3.connect('Database/final.db')
     cur = conn.cursor()
     cur.execute('SELECT * FROM Movie WHERE id=?',(id,))
-    Movie = cur.fetchone()
-    cur.execute('SELECT * FROM Movie WHERE id=?',(movie[4],))
+    movie = cur.fetchone()
+    cur.execute('SELECT * FROM Movie WHERE id=?',(movie[1],))
     genre = cur.fetchone()
     cur.execute('SELECT * FROM Movie WHERE id=?',(movie[3],))
     director = cur.fetchone()
-    return render_template('movies_detail.html', movie=movie,genre=genre,description=description)
+    cur.execute('SELECT * FROM Movie WHERE id=?',(movie[4],))
+    image = cur.fetchone()
+    cur.execute('SELECT * FROM movie WHERE id=?',(movie[5],))
+    return render_template('movie_detail.html', movie=movie,genre=genre,director=director,image=image)
 
 
 if __name__ == "__main__":
