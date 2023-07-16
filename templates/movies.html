@@ -1,6 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
+<div class="grid-container">
 {% for movies in movies%}
-         <h2><a href="/movie_detail/{{movies[0]}}"><img src="{{movies[5]}}"/></a></h2>
+
+<div class="grid-item"><a href="/movie_detail/{{movies[0]}}"><img src="{{movies[5]}}"/></a></div>
 {% endfor %}
+</div>
 {% endblock %}

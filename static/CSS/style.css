@@ -103,3 +103,11 @@ h2 {
     flex-wrap: wrap;
     padding: 0 4px;
   }
+  .grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    padding: 10px;
+  }
+  .grid-item {
+    background-color: rgba(255, 255, 255, 0.8);
+  }
