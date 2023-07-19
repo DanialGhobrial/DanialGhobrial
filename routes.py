@@ -31,6 +31,17 @@ def movies():
     movies = cur.fetchall()
     return render_template('movies.html', movies=movies)
 
+@app.route('/review/add', methods=['POST'])
+def review():
+    name = request.form['name']
+    review = request.form['review']
+    description = request.form['description']
+    conn = sqlite3.connect('Final.db')
+    cursor = conn.cursor()
+    cursor.execute('INSERT INTO Reviews (name, review, description) VALUES (?, ?, ?)',
+                   (name, review, description))
+    conn.commit()
+    return redirect("/")
 
 @app.route('/movie_detail/<int:id>')
 def movies_detail(id):
@@ -45,6 +56,9 @@ def movies_detail(id):
     cur.execute('SELECT * FROM Movie WHERE id=?', (movie[4],))
     image = cur.fetchone()
     cur.execute('SELECT * FROM movie WHERE id=?', (movie[5],))
+    name = request.form['name']
+    review = request.form['review']
+    description = request.form['description']
     return render_template('movie_detail.html', movie=movie, genre=genre, director=director, image=image)
 
 

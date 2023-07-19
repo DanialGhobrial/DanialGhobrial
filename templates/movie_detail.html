@@ -2,4 +2,24 @@
 {% block content %}
 <h2><img src="{{movie[5]}}"/></h2>
 <h2>{{movie[1]}}</h2><h2>Year: {{movie[2]}}</h2><h2>Genre: {{movie[3]}}</h2><h2>Director: {{movie[4]}}</h2>
+
+<br>
+<br>
+
+<h2>
+    Write A Review
+
+    <form action="{{ review }}" method="POST">
+      <label for="name">Name:</label>
+      <input type="text" name="name" id="name" required><br>
+
+      <label for="Review">review:</label>
+      <input type="text" name="location" id="location" required><br>
+
+      <label for="description">description:</label>
+      <input type="text" name="description" id="description" required><br>
+
+      <input type="submit" value="Submit">
+  </form>
+</h2>
 {% endblock %}
