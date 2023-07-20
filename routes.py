@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import sqlite3
 
 app = Flask(__name__)
@@ -11,7 +11,6 @@ def home():
     return render_template("home.html", title="Home")
 
 # This is the route for the about page
-
 
 @app.route('/about')
 def about():
@@ -38,10 +37,9 @@ def review():
     description = request.form['description']
     conn = sqlite3.connect('Final.db')
     cursor = conn.cursor()
-    cursor.execute('INSERT INTO Reviews (name, review, description) VALUES (?, ?, ?)',
-                   (name, review, description))
+    cursor.execute('INSERT INTO Reviews (name, review, description) VALUES (?, ?, ?)', (name, review, description))
     conn.commit()
-    return redirect("/")
+    return redirect("http://127.0.0.1:5000/movies")
 
 @app.route('/movie_detail/<int:id>')
 def movies_detail(id):
@@ -56,9 +54,6 @@ def movies_detail(id):
     cur.execute('SELECT * FROM Movie WHERE id=?', (movie[4],))
     image = cur.fetchone()
     cur.execute('SELECT * FROM movie WHERE id=?', (movie[5],))
-    name = request.form['name']
-    review = request.form['review']
-    description = request.form['description']
     return render_template('movie_detail.html', movie=movie, genre=genre, director=director, image=image)
 
 
