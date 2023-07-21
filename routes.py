@@ -22,16 +22,12 @@ def contact():
     return render_template("contact.html", title="Contact")
 
 
-@app.route('/movies')
+@app.route('/movies', methods=['POST'])
 def movies():
     conn = sqlite3.connect('Database/Final.db')
     cur = conn.cursor()
     cur.execute('SELECT * FROM Movie')
     movies = cur.fetchall()
-    return render_template('movies.html', movies=movies)
-
-@app.route('/review/add', methods=['POST'])
-def review():
     name = request.form['name']
     review = request.form['review']
     description = request.form['description']
@@ -39,7 +35,7 @@ def review():
     cursor = conn.cursor()
     cursor.execute('INSERT INTO Reviews (name, review, description) VALUES (?, ?, ?)', (name, review, description))
     conn.commit()
-    return redirect("http://127.0.0.1:5000/movies")
+    return render_template('movies.html', movies=movies)
 
 @app.route('/movie_detail/<int:id>')
 def movies_detail(id):
