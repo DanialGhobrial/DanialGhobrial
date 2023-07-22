@@ -3,14 +3,17 @@ import sqlite3
 
 app = Flask(__name__)
 
+
 # This is the route for the home page
 
-
+ 
 @app.route('/')
 def home():
     return render_template("home.html", title="Home")
 
+
 # This is the route for the about page
+
 
 @app.route('/about')
 def about():
@@ -22,20 +25,16 @@ def contact():
     return render_template("contact.html", title="Contact")
 
 
-@app.route('/movies', methods=['POST'])
-def movies():
+@app.route('/movies', methods=["POST"])
+def movies():    
     conn = sqlite3.connect('Database/Final.db')
     cur = conn.cursor()
+
+  
     cur.execute('SELECT * FROM Movie')
     movies = cur.fetchall()
-    name = request.form['name']
-    review = request.form['review']
-    description = request.form['description']
-    conn = sqlite3.connect('Final.db')
-    cursor = conn.cursor()
-    cursor.execute('INSERT INTO Reviews (name, review, description) VALUES (?, ?, ?)', (name, review, description))
-    conn.commit()
     return render_template('movies.html', movies=movies)
+
 
 @app.route('/movie_detail/<int:id>')
 def movies_detail(id):
