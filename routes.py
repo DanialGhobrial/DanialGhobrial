@@ -1,15 +1,20 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
+from random import randint
+random_id = randint(1,24)
 import sqlite3
 
 app = Flask(__name__)
 
-
 # This is the route for the home page
 
- 
+
 @app.route('/')
 def home():
-    return render_template("home.html", title="Home")
+    conn = sqlite3.connect('Database/Final.db')
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM Movie')
+    movies = cur.fetchall()
+    return render_template('home.html', movies=movies)
 
 
 # This is the route for the about page
@@ -18,19 +23,28 @@ def home():
 @app.route('/about')
 def about():
     return render_template("about.html", title="About")
+  
 
 
 @app.route('/contact')
 def contact():
     return render_template("contact.html", title="Contact")
 
+@app.route('/movies', methods=['POST'])
+def add_movies():
+    name = request.form['name']
+    review = request.form['review']
+    rating = request.form['rating']
+    conn = sqlite3.connect('Database/Final.db')
+    cursor = conn.cursor()
+    cursor.execute('INSERT INTO Review (name, rating, review) VALUES (?, ?, ?)', (name, rating, review,))
+    conn.commit()
+    return redirect("http://127.0.0.1:5000/movies")
 
-@app.route('/movies', methods=["POST"])
-def movies():    
+@app.route('/movies')
+def movies():
     conn = sqlite3.connect('Database/Final.db')
     cur = conn.cursor()
-
-  
     cur.execute('SELECT * FROM Movie')
     movies = cur.fetchall()
     return render_template('movies.html', movies=movies)

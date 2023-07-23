@@ -1,25 +1,8 @@
-{%extends 'layout.html'%}
-{%block content%}
-    <title>Movie Reviews</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
-</head>
-<body>
-    <h1>Welcome to Movie Reviews!</h1>
-    
-    <p>Discover the latest movies, read reviews, and find recommendations at Movie Reviews. Whether you're a film enthusiast or just looking for your next movie night pick, our curated collection of movies and ratings will help you make informed decisions.</p>
-    
-    <h2>Featured Movies</h2>
-    
-    {% for movie in movies %}
-        <div class="movie">
-            <img src="{{ movie.image_url }}" alt="{{ movie.title }}">
-
-            <h3>{{ movie.title }}</h3>
-            <p><strong>Rating:</strong> {{ movie.rating }}</p>
-            <p>{{ movie.description }}</p>
-        </div>
-    {% endfor %}
-</body>
-</html>
-
-{%endblock%}
+{% extends "layout.html" %}
+{% block content %}
+<div class="grid-container">
+{% for movies in movies%}
+<div class="grid-item"><a href="/movie_detail/{{movies[0]}}"><img src="{{movies[5]}}"/></a></div>
+{% endfor %}
+</div> 
+{% endblock %}
