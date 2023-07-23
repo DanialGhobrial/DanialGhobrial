@@ -5,16 +5,22 @@ import sqlite3
 
 app = Flask(__name__)
 
+
+
+def get_random_data():
+    conn = sqlite3.connect("Database/final.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Movie ORDER BY RANDOM() LIMIT 5")  # Change 'your_table' to your actual table name
+    data = cursor.fetchall()
+    conn.close()
+    return data
+
 # This is the route for the home page
-
-
 @app.route('/')
 def home():
-    conn = sqlite3.connect('Database/Final.db')
-    cur = conn.cursor()
-    cur.execute('SELECT * FROM Movie')
-    movies = cur.fetchall()
-    return render_template('home.html', movies=movies)
+    random_data = get_random_data()
+    return render_template('home.html', data=random_data)
+
 
 
 # This is the route for the about page
