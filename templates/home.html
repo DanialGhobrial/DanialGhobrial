@@ -1,8 +1,11 @@
 {% extends "layout.html" %}
 {% block content %}
+<h2>Movies You May Like
 <div class="grid-container">
 {% for item in data%}
 <div class="grid-item"><a href="/movie_detail/{{item[0]}}"><img src="{{item[5]}}"/></a></div>
 {% endfor %}
+</h2>
 </div> 
+
 {% endblock %}

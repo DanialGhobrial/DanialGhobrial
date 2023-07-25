@@ -38,14 +38,20 @@ def contact():
 
 @app.route('/movies', methods=['POST'])
 def add_movies():
+    conn = sqlite3.connect('Database/final.db')
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM Movie WHERE id=?', (id,))
+    movies = cur.fetchone()
+    cur.execute('SELECT * FROM Movie WHERE id=?', (movie[0],))
     name = request.form['name']
     review = request.form['review']
     rating = request.form['rating']
+    movie_id = request.form['movie_id']
     conn = sqlite3.connect('Database/Final.db')
     cursor = conn.cursor()
-    cursor.execute('INSERT INTO Review (name, rating, review) VALUES (?, ?, ?)', (name, rating, review,))
+    cursor.execute('INSERT INTO Review (name, rating, review, movie_id) VALUES (?, ?, ?, ?)', (name, rating, review,movie_id))
     conn.commit()
-    return redirect("http://127.0.0.1:5000/movies")
+    return redirect("http://127.0.0.1:5000/movies",movies=movies)
 
 @app.route('/movies')
 def movies():
