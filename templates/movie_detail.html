@@ -1,40 +1,61 @@
 {% extends "layout.html" %}
 {% block content %}
-<h2><img src="{{movie[5]}}"/></h2>
-<h2>{{movie[1]}}</h2><h2>Year: {{movie[2]}}</h2><h2>Genre: {{movie[3]}}</h2><h2>Director: {{movie[4]}}</h2>
+    <div class="movie-details">
+        <img src="{{ movie[5] }}" alt="{{ movie[1] }}" class="movie-image">
+        <h2 class="movie-title">{{ movie[1] }}</h2>
+        <p class="movie-info">Year: {{ movie[2] }} | Genre: {{ movie[3] }} | Director: {{ movie[4] }}</p>
 
-<br>
-<br>
+        <br>
+        <br>
 
-<h2>
-    Write A Review
+        <h2>Reviews:</h2>
+        {% if reviews %}
+            <ul class="review-list">
+                {% for review in reviews %}
+                    {% if review[2] %}
+                        <li class="review-item">
+                            <strong>{{ review[1] }}</strong> (Rating: {{ review[2] }})
+                            <p>{{ review[3] }}</p>
+                        </li>
+                    {% else %}
+                        <li class="review-item">No rating provided. Review: <p>{{ review[3] }}</p></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h2>No reviews available for this movie.</h2>
+        {% endif %}
 
-    <form action="/movies" method="POST">
-      <label for="name">Name:</label>
-      <input type="text" name="name" id="name" required><br>
+        <br>
+        <br>
 
-      <label for="Review">review:</label>
-      <input type="text" name="review" id="review" required><br>
-      
-      <label for="rating">rating:</label>
-      <select name="rating" id="rating">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
+        <h2>Write A Review</h2>
 
-      <label for="movie_id">Movie ID:</label>
-      <input type="hidden" name="movie_id" id="movie_id" value="{{movies[0]}}" required><br>
-      </select>
+        <form action="/movies" method="POST" class="review-form">
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" required><br>
 
-      
-      <input type="submit" value="Submit">
-  </form>
-</h2>
+            <label for="review">Review:</label>
+            <input type="text" name="review" id="review" required><br>
+            
+            <label for="rating">Rating:</label>
+            <select name="rating" id="rating">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+
+            <!-- The movie_id is passed as a hidden input -->
+            <input type="hidden" name="movie_id" id="movie_id" value="{{ movie[0] }}" required><br>
+          
+            <input type="submit" value="Submit" class="submit-btn">
+        </form>
+    </div>
 {% endblock %}

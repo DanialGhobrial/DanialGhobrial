@@ -1,8 +1,18 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="grid-container">
-{% for movies in movies%}
-<div class="grid-item"><a href="/movie_detail/{{movies[0]}}"><img src="{{movies[5]}}"/></a></div>
-{% endfor %}
-</div> 
+  <div class="movie-grid">
+    <div class="home-header">
+      <h1>Welcome to Our Movie Collection</h1>
+      <p>Explore our vast collection of movies. Click on any movie to see more details.</p>
+    </div>
+    <div class="grid-container">
+      {% for movie in movies %}
+        <div class="grid-item" data-title="{{ movie[1] }}" data-genre="{{ movie[3] }}" data-year="{{ movie[2] }}" data-director="{{ movie[4] }}">
+          <a href="/movie_detail/{{ movie[0] }}">
+            <img src="{{ movie[5] }}" alt="{{ movie[1] }}" />
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
 {% endblock %}

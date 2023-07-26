@@ -1,11 +1,22 @@
 {% extends "layout.html" %}
-{% block content %}
-<h2>Movies You May Like
-<div class="grid-container">
-{% for item in data%}
-<div class="grid-item"><a href="/movie_detail/{{item[0]}}"><img src="{{item[5]}}"/></a></div>
-{% endfor %}
-</h2>
-</div> 
 
+{% block content %}
+<div class="home-header">
+    <h1>Welcome to Movie Recommendations</h1>
+    <p>Discover and explore a collection of handpicked movies that you may like. Find information about each movie and read reviews from other users. Start exploring now!</p>
+</div>
+
+<div class="movie-grid">
+    <h2>Movies You May Like</h2>
+    <div class="grid-container">
+        {% for item in data %}
+        <div class="grid-item">
+            <a href="/movie_detail/{{ item[0] }}">
+                <img src="{{ item[5] }}" alt="{{ item[1] }}" />
+                <h3>{{ item[1] }}</h3>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
