@@ -7,7 +7,7 @@ app = Flask(__name__)
 def get_random_data():
     with sqlite3.connect("Database/Final.db") as conn:
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM Movie ORDER BY RANDOM() LIMIT 5")
+        cursor.execute("SELECT * FROM Movie ORDER BY RANDOM() LIMIT 4")
         data = cursor.fetchall()
     return data
 
