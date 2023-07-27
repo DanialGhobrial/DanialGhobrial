@@ -5,9 +5,9 @@ app = Flask(__name__)
 
 # Function to get random data from the 'Movie' table
 def get_random_data():
-    with sqlite3.connect("Database/final.db") as conn:
+    with sqlite3.connect("Database/Final.db") as conn:
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM Movie ORDER BY RANDOM() LIMIT 5")  # Change 'your_table' to your actual table name
+        cursor.execute("SELECT * FROM Movie ORDER BY RANDOM() LIMIT 5")
         data = cursor.fetchall()
     return data
 
@@ -28,8 +28,8 @@ def contact():
     return render_template("contact.html", title="Contact")
 
 # Route to add a new review for a movie
-@app.route('/movies', methods=['POST'])
-def add_movies():
+@app.route('/add_review', methods=['POST'])
+def add_movie_review():
     name = request.form['name']
     review = request.form['review']
     rating = request.form['rating']
@@ -39,20 +39,49 @@ def add_movies():
 
     with sqlite3.connect('Database/Final.db') as conn:
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO Review (name, rating, review, movie_id) VALUES (?, ?, ?, ?)', (name, rating, review, movie_id))
+        cursor.execute('INSERT INTO Review (name, rating, review, movie_id) VALUES (?, ?, ?, ?)',
+                       (name, rating, review, movie_id))
         conn.commit()
 
     return redirect("/movie_detail/{}".format(movie_id))
 
-# Route to display a list of movies
-@app.route('/movies')
+# Route to display a list of movies and handle the search form
+@app.route('/movies', methods=['GET', 'POST'])
 def movies():
-    with sqlite3.connect('Database/Final.db') as conn:
-        cur = conn.cursor()
-        cur.execute('SELECT * FROM Movie')
-        movies = cur.fetchall()
+    if request.method == 'POST':
+        # Handle the form submission for adding a review
+        name = request.form['name']
+        review = request.form['review']
+        rating = request.form['rating']
+        movie_id = request.form['movie_id']
+
+        print(f"Name: {name}, Review: {review}, Rating: {rating}, Movie ID: {movie_id}")  # Debugging line
+
+        with sqlite3.connect('Database/Final.db') as conn:
+            cursor = conn.cursor()
+            cursor.execute('INSERT INTO Review (name, rating, review, movie_id) VALUES (?, ?, ?, ?)',
+                           (name, rating, review, movie_id))
+            conn.commit()
+
+        return redirect("/movie_detail/{}".format(movie_id))
+
+    # Handle the search query
+    query = request.args.get('query')
+    if query:
+        with sqlite3.connect('Database/Final.db') as conn:
+            cur = conn.cursor()
+            cur.execute('SELECT * FROM Movie WHERE title LIKE ? OR genre LIKE ? OR year LIKE ? OR director LIKE ?',
+                        (f'%{query}%', f'%{query}%', f'%{query}%', f'%{query}%'))
+            movies = cur.fetchall()
+    else:
+        with sqlite3.connect('Database/Final.db') as conn:
+            cur = conn.cursor()
+            cur.execute('SELECT * FROM Movie')
+            movies = cur.fetchall()
 
     return render_template('movies.html', movies=movies)
+
+
 
 # Route to display the details of a specific movie
 @app.route('/movie_detail/<int:id>')
