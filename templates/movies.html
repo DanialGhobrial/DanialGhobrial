@@ -11,7 +11,7 @@
     <div class="search-box">
       <form class="search-form" method="GET">
         <label for="search_query">Search:</label>
-        <input type="text" id="search_query" name="query" placeholder="Search by movie title">
+        <input type="text" id="search_query" name="search_query" placeholder="Search by movie title">
         <input type="submit" value="Search">
       </form>
     </div>
@@ -31,6 +31,19 @@
           </div>
         </div>
       {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+      {% if num_pages > 1 %}
+        <ul>
+          {% for page_num in range(1, num_pages + 1) %}
+            <li>
+              <a href="/movies?page={{ page_num }}" {% if page_num == current_page %}class="active"{% endif %}>{{ page_num }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
     </div>
   </div>
 {% endblock %}

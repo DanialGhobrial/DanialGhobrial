@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
+from math import ceil
 import sqlite3
 
 app = Flask(__name__)
@@ -43,29 +44,16 @@ def add_movie_review():
                        (name, rating, review, movie_id))
         conn.commit()
 
-    return redirect("/movie_detail/{}".format(movie_id))
+        return redirect(url_for('movies_detail', id=movie_id))   # Redirect back to the movie details page
+
 
 # Route to display a list of movies and handle the search form
 @app.route('/movies', methods=['GET', 'POST'])
 def movies():
     if request.method == 'POST':
-        # Handle the form submission for adding a review
-        name = request.form['name']
-        review = request.form['review']
-        rating = request.form['rating']
-        movie_id = request.form['movie_id']
+        # Handle the form submission here (if needed)
+        pass
 
-        print(f"Name: {name}, Review: {review}, Rating: {rating}, Movie ID: {movie_id}")  # Debugging line
-
-        with sqlite3.connect('Database/Final.db') as conn:
-            cursor = conn.cursor()
-            cursor.execute('INSERT INTO Review (name, rating, review, movie_id) VALUES (?, ?, ?, ?)',
-                           (name, rating, review, movie_id))
-            conn.commit()
-
-        return redirect("/movie_detail/{}".format(movie_id))
-
-    # Handle the search query
     query = request.args.get('query')
     if query:
         with sqlite3.connect('Database/Final.db') as conn:
@@ -79,7 +67,16 @@ def movies():
             cur.execute('SELECT * FROM Movie')
             movies = cur.fetchall()
 
-    return render_template('movies.html', movies=movies)
+    # Pagination logic
+    items_per_page = 28  # Number of movies per page
+    num_pages = ceil(len(movies) / items_per_page)
+    page = int(request.args.get('page', 1))
+    start_idx = (page - 1) * items_per_page
+    end_idx = start_idx + items_per_page
+    movies_to_display = movies[start_idx:end_idx]
+
+    return render_template('movies.html', movies=movies_to_display, page=page, num_pages=num_pages)
+
 
 
 

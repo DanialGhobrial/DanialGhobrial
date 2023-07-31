@@ -516,5 +516,128 @@ h1 {
   background-color: #ffa300;
 }
 
-/* ... (Your existing CSS below) ... */
+/* About page styles */
+.about-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
 
+.about-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.about-header h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.about-header p {
+  font-size: 18px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.about-mission h2,
+.about-collection h2,
+.about-features h2,
+.about-team h2,
+.about-contact h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.about-mission p,
+.about-collection p,
+.about-features ul,
+.about-features li,
+.about-team p,
+.about-contact p {
+  font-size: 18px;
+  color: #333;
+  line-height: 1.6;
+}
+
+.about-features ul {
+  list-style: disc;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.about-features li {
+  margin-bottom: 10px;
+}
+
+.about-contact p {
+  margin-bottom: 30px;
+}
+
+/* Media queries for responsiveness */
+@media screen and (max-width: 600px) {
+  .about-page {
+    padding: 10px;
+  }
+  
+  .about-header h1 {
+    font-size: 28px;
+  }
+
+  .about-header p {
+    font-size: 16px;
+  }
+
+  .about-mission h2,
+  .about-collection h2,
+  .about-features h2,
+  .about-team h2,
+  .about-contact h2 {
+    font-size: 20px;
+  }
+
+  .about-mission p,
+  .about-collection p,
+  .about-features ul,
+  .about-features li,
+  .about-team p,
+  .about-contact p {
+    font-size: 16px;
+  }
+}
+/* Pagination styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pagination li {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.pagination a {
+  display: block;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #333;
+  background-color: #fff;
+  transition: background-color 0.2s;
+}
+
+.pagination a.active {
+  background-color: #ffc72c;
+  color: #fff;
+}
+
+.pagination a:hover {
+  background-color: #f0f0f0;
+}
