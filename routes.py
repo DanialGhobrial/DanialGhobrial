@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
 from math import ceil
 import sqlite3
+from sqlite3 import Error
+import os
+
 
 app = Flask(__name__)
 
@@ -12,18 +15,18 @@ def get_random_data():
         data = cursor.fetchall()
     return data
 
-# This is the route for the home page
+# Route for the home page
 @app.route('/')
 def home():
     random_data = get_random_data()
     return render_template('home.html', data=random_data)
 
-# This is the route for the about page
+# Route for the about page
 @app.route('/about')
 def about():
     return render_template("about.html", title="About")
 
-# This is the route for the contact page
+# Route for the contact page
 @app.route('/contact')
 def contact():
     return render_template("contact.html", title="Contact")
@@ -31,21 +34,29 @@ def contact():
 # Route to add a new review for a movie
 @app.route('/add_review', methods=['POST'])
 def add_movie_review():
-    name = request.form['name']
-    review = request.form['review']
-    rating = request.form['rating']
-    movie_id = request.form['movie_id']
+    try:
+        name = request.form['name']
+        review = request.form['review']
+        rating = request.form['rating']
+        movie_id = request.form['movie_id']
 
-    print(f"Name: {name}, Review: {review}, Rating: {rating}, Movie ID: {movie_id}")  # Debugging line
+        print(f"Name: {name}, Review: {review}, Rating: {rating}, Movie ID: {movie_id}")  # Debugging line
 
-    with sqlite3.connect('Database/Final.db') as conn:
-        cursor = conn.cursor()
-        cursor.execute('INSERT INTO Review (name, rating, review, movie_id) VALUES (?, ?, ?, ?)',
-                       (name, rating, review, movie_id))
-        conn.commit()
+        with sqlite3.connect('Database/Final.db') as conn:
+            cursor = conn.cursor()
+            cursor.execute('INSERT INTO Review (name, rating, review, movie_id) VALUES (?, ?, ?, ?)',
+                           (name, rating, review, movie_id))
+            conn.commit()
 
-        return redirect(url_for('movies_detail', id=movie_id))   # Redirect back to the movie details page
+        return redirect(url_for('movies_detail', id=movie_id))  # Redirect back to the movie details page
 
+    except Exception as e:
+        # Print the error message for debugging
+        print(f"Error occurred: {e}")
+
+    # Optionally, you can return an error page or redirect back to the movie details page with an error message.
+    # For simplicity, we are just redirecting back to the movie details page.
+    return redirect(url_for('movies_detail', id=movie_id))
 
 # Route to display a list of movies and handle the search form
 @app.route('/movies', methods=['GET', 'POST'])
@@ -53,7 +64,6 @@ def movies():
     if request.method == 'POST':
         # Handle the form submission here (if needed)
         pass
-
     query = request.args.get('query')
     if query:
         with sqlite3.connect('Database/Final.db') as conn:
@@ -77,9 +87,6 @@ def movies():
 
     return render_template('movies.html', movies=movies_to_display, page=page, num_pages=num_pages)
 
-
-
-
 # Route to display the details of a specific movie
 @app.route('/movie_detail/<int:id>')
 def movies_detail(id):
@@ -87,20 +94,30 @@ def movies_detail(id):
         cur = conn.cursor()
         cur.execute('SELECT * FROM movie WHERE id=?', (id,))
         movie = cur.fetchone()
-
         cur.execute('SELECT * FROM movie WHERE id=?', (movie[3],))
         genre = cur.fetchone()
-
         cur.execute('SELECT * FROM movie WHERE id=?', (movie[4],))
         director = cur.fetchone()
-
         cur.execute('SELECT * FROM movie WHERE id=?', (movie[5],))
         image = cur.fetchone()
-
         cur.execute('SELECT * FROM Review WHERE movie_id=?', (id,))
         reviews = cur.fetchall()
-
     return render_template('movie_detail.html', movie=movie, genre=genre, director=director, image=image, reviews=reviews)
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('error.html', error='Page not found'), 404
+
+# Custom error handling for 500 (Internal Server Error) error
+@app.errorhandler(500)
+def internal_server_error(error):
+    return render_template('error.html', error='Internal server error'), 500
+
+# Custom error handling for other unexpected errors
+@app.errorhandler(Exception)
+def unexpected_error(error):
+    return render_template('error.html', error='Something went wrong'), 500
+
 
 
 if __name__ == "__main__":
