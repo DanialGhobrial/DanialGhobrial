@@ -1,0 +1,27 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 50px;
+}
+
+h1 {
+    color: #f44336;
+}
+
+p {
+    color: #666;
+}
+
+.home-button {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+.home-button:hover {
+    background-color: #45a049;
+}
