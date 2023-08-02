@@ -8,5 +8,12 @@
     <h1>Error</h1>
     <p>{{ error }}</p>
     <a href="{{ url_for('home') }}" class="home-button">Back to Home</a>
+    <button class="reload-button" onclick="reloadPage()">Reload Page</button>
+
+    <script>
+        function reloadPage() {
+            location.reload();
+        }
+    </script>
 </body>
 </html>

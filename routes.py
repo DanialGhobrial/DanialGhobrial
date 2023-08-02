@@ -64,17 +64,18 @@ def movies():
     if request.method == 'POST':
         # Handle the form submission here (if needed)
         pass
-    query = request.args.get('query')
-    if query:
+
+    search_query = request.args.get('search_query')  # Change 'query' to 'search_query'
+    if search_query:
         with sqlite3.connect('Database/Final.db') as conn:
             cur = conn.cursor()
-            cur.execute('SELECT * FROM Movie WHERE title LIKE ? OR genre LIKE ? OR year LIKE ? OR director LIKE ?',
-                        (f'%{query}%', f'%{query}%', f'%{query}%', f'%{query}%'))
+            cur.execute('SELECT * FROM Movie WHERE title LIKE ? OR genre LIKE ? OR year LIKE ? OR director LIKE ? ORDER BY title',
+                        (f'%{search_query}%', f'%{search_query}%', f'%{search_query}%', f'%{search_query}%'))
             movies = cur.fetchall()
     else:
         with sqlite3.connect('Database/Final.db') as conn:
             cur = conn.cursor()
-            cur.execute('SELECT * FROM Movie')
+            cur.execute('SELECT * FROM Movie ORDER BY title')
             movies = cur.fetchall()
 
     # Pagination logic
@@ -86,6 +87,8 @@ def movies():
     movies_to_display = movies[start_idx:end_idx]
 
     return render_template('movies.html', movies=movies_to_display, page=page, num_pages=num_pages)
+
+
 
 # Route to display the details of a specific movie
 @app.route('/movie_detail/<int:id>')
