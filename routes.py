@@ -122,6 +122,21 @@ def unexpected_error(error):
     return render_template('error.html', error='Something went wrong'), 500
 
 
+@app.route('/contact', methods=['POST'])
+def add_contact(): 
+    conn = sqlite3.connect('Database/final.db') 
+    name = request.form['name'] 
+    email = request.form['email'] 
+    subject = request.form['subject'] 
+    message = request.form['message'] 
+    conn = sqlite3.connect('Database/Final.db') 
+    cursor = conn.cursor() 
+    cursor.execute('INSERT INTO Contact (name, email, subject, message) VALUES (?, ?, ?, ?)', (name, email, subject, message)) 
+    conn.commit() 
+    return redirect("http://127.0.0.1:5000/contact")
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
