@@ -641,3 +641,13 @@ h1 {
 .pagination a:hover {
   background-color: #f0f0f0;
 }
+
+.home-button {
+  display: grid;
+  text-align: center;
+  background-color: #ffc72c;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
