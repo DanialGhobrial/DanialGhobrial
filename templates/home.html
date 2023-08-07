@@ -9,12 +9,13 @@
 <div class="movie-grid">
     <h2>Movies You May Like</h2>
     <div class="grid-container">
-        {% for item in data %}
+        {% for movie in data %}
         <div class="grid-item">
-            <a href="/movie_detail/{{ item[0] }}">
-                <img src="{{ item[5] }}" alt="{{ item[1] }}" />
-                <h3>{{ item[1] }}</h3>
+            <a href="{{ url_for('movies_detail', id=movie[0]) }}">
+                <img src="{{ movie[5] }}" alt="{{ movie[1] }}" />
+                <h3>{{ movie[1] }}</h3>
             </a>
+            
         </div>
         {% endfor %}
     </div>

@@ -107,19 +107,19 @@ def movies_detail(id):
         reviews = cur.fetchall()
     return render_template('movie_detail.html', movie=movie, genre=genre, director=director, image=image, reviews=reviews)
 
-@app.errorhandler(404)
-def page_not_found(error):
-    return render_template('error.html', error='Page not found'), 404
-
+#@app.errorhandler(404)
+#def page_not_found(error):
+   # return render_template('error.html', error='Page not found'), 404
+#
 # Custom error handling for 500 (Internal Server Error) error
-@app.errorhandler(500)
-def internal_server_error(error):
-    return render_template('error.html', error='Internal server error'), 500
+#@app.errorhandler(500)
+#def internal_server_error(error):
+   # return render_template('error.html', error='Internal server error'), 500
 
 # Custom error handling for other unexpected errors
-@app.errorhandler(Exception)
-def unexpected_error(error):
-    return render_template('error.html', error='Something went wrong'), 500
+#@app.errorhandler(Exception)
+#def unexpected_error(error):
+ #   return render_template('error.html', error='Something went wrong'), 500
 
 
 @app.route('/contact', methods=['POST'])

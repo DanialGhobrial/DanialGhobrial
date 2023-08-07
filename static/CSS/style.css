@@ -59,8 +59,8 @@ h1 {
 
 /* Active navbar link */
 .navbar a.active {
-  background-color: #ffc72c; /* Set the desired background color for the active link */
-  color: #fff; /* Set the text color for the active link */
+  background-color: #ffc72c;
+  color: #fff;
 }
 
 /* FOOTER STYLES */
@@ -299,36 +299,7 @@ h1 {
   margin-top: 10px;
   margin-bottom: 5px;
 }
-.search-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-}
 
-.search-form input[type="text"] {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px 0 0 5px;
-}
-
-.search-form input[type="submit"] {
-  padding: 8px 20px;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-}
-
-.search-form input[type="text"]::placeholder {
-  color: #ccc;
-}
-
-.search-form input[type="text"]:focus {
-  outline: none;
-  border-color: #666;
-}
 /* CSS for search box */
 .search-box {
   text-align: center;
@@ -453,6 +424,7 @@ h1 {
   border-color: transparent transparent #333 transparent;
   transform: translateX(-50%);
 }
+
 /* ... (Your existing CSS above) ... */
 
 /* Styles for home page header */
@@ -542,7 +514,6 @@ h1 {
 .about-mission h2,
 .about-collection h2,
 .about-features h2,
-.about-team h2,
 .about-contact h2 {
   font-size: 24px;
   margin-bottom: 15px;
@@ -552,7 +523,6 @@ h1 {
 .about-collection p,
 .about-features ul,
 .about-features li,
-.about-team p,
 .about-contact p {
   font-size: 18px;
   color: #333;
@@ -604,6 +574,7 @@ h1 {
     font-size: 16px;
   }
 }
+
 /* Pagination styles */
 .pagination {
   display: flex;
@@ -651,13 +622,45 @@ h1 {
   border-radius: 5px;
   margin-top: 20px;
 }
-body {
+
+/* Error page styles */
+body.error-page {
   font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f7f7f7;
+  text-align: center;
+  margin: 50px;
+  background-color: #f0f0f0;
 }
 
+.error-page h1 {
+  color: #f44336;
+}
+
+.error-page p {
+  color: #666;
+}
+
+.error-page .home-button,
+.error-page .reload-button {
+  display: inline-block;
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.error-page .home-button:hover,
+.error-page .reload-button:hover {
+  background-color: #45a049;
+}
+
+.error-page .reload-button {
+  background-color: #2196F3;
+  margin-left: 10px;
+}
+/* Contact page styles */
 .contact-container {
   max-width: 500px;
   margin: 50px auto;
@@ -707,4 +710,3 @@ body {
 .contact-container input[type="submit"]:hover {
   background-color: #555;
 }
-

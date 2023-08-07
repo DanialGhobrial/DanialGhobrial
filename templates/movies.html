@@ -19,17 +19,17 @@
     <!-- Movie Grid -->
     <div class="grid-container">
       {% for movie in movies %}
-        <div class="grid-item" data-title="{{ movie[1] }}" data-genre="{{ movie[3] }}" data-year="{{ movie[2] }}" data-director="{{ movie[4] }}">
-          <a href="/movie_detail/{{ movie[0] }}">
-            <img src="{{ movie[5] }}" alt="{{ movie[1] }}" />
-          </a>
-          <div class="tooltip">
+      <div class="grid-item" data-title="{{ movie[1] }}" data-genre="{{ movie[3] }}" data-year="{{ movie[2] }}" data-director="{{ movie[4] }}">
+        <a href="{{ url_for('movies_detail', id=movie[0]) }}">
+          <img src="{{ movie[5] }}" alt="{{ movie[1] }}" />
+        </a>
+        <div class="tooltip">
             <p><strong>Title:</strong> {{ movie[1] }}</p>
             <p><strong>Genre:</strong> {{ movie[3] }}</p>
             <p><strong>Year:</strong> {{ movie[2] }}</p>
             <p><strong>Director:</strong> {{ movie[4] }}</p>
-          </div>
         </div>
+    </div>
       {% endfor %}
     </div>
 
