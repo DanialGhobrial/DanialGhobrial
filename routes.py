@@ -34,7 +34,6 @@ def contact():
 # Route to add a new review for a movie
 @app.route('/add_review', methods=['POST'])
 def add_movie_review():
-    try:
         name = request.form['name']
         review = request.form['review']
         rating = request.form['rating']
@@ -49,14 +48,6 @@ def add_movie_review():
             conn.commit()
 
         return redirect(url_for('movies_detail', id=movie_id))  # Redirect back to the movie details page
-
-    except Exception as e:
-        # Print the error message for debugging
-        print(f"Error occurred: {e}")
-
-    # Optionally, you can return an error page or redirect back to the movie details page with an error message.
-    # For simplicity, we are just redirecting back to the movie details page.
-    return redirect(url_for('movies_detail', id=movie_id))
 
 # Route to display a list of movies and handle the search form
 @app.route('/movies', methods=['GET', 'POST'])
@@ -107,19 +98,19 @@ def movies_detail(id):
         reviews = cur.fetchall()
     return render_template('movie_detail.html', movie=movie, genre=genre, director=director, image=image, reviews=reviews)
 
-#@app.errorhandler(404)
-#def page_not_found(error):
-   # return render_template('error.html', error='Page not found'), 404
-#
+@app.errorhandler(404)
+def page_not_found(error):
+   return render_template('error.html', error='Page not found'), 404
+
 # Custom error handling for 500 (Internal Server Error) error
-#@app.errorhandler(500)
-#def internal_server_error(error):
-   # return render_template('error.html', error='Internal server error'), 500
+@app.errorhandler(500)
+def internal_server_error(error):
+   return render_template('error.html', error='Internal server error'), 500
 
 # Custom error handling for other unexpected errors
-#@app.errorhandler(Exception)
-#def unexpected_error(error):
- #   return render_template('error.html', error='Something went wrong'), 500
+@app.errorhandler(Exception)
+def unexpected_error(error):
+   return render_template('error.html', error='Something went wrong'), 500
 
 
 @app.route('/contact', methods=['POST'])

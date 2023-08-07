@@ -33,11 +33,11 @@
 
         <form action="/add_review" method="POST" class="review-form">
             <label for="name">Name:</label>
-            <input type="text" name="name" id="name" required><br>
+            <input type="text" name="name" id="name" required required maxlength="25"><br>
 
             <label for="review">Review:</label>
-            <input type="text" name="review" id="review" required><br>
-            
+            <input type="text" name="review" id="review" required maxlength="111"><br>
+         
             <label for="rating">Rating:</label>
             <select name="rating" id="rating">
                 <option value="1">1</option>
