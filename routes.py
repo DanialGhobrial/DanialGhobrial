@@ -70,7 +70,7 @@ def movies():
             movies = cur.fetchall()
 
     # Pagination logic
-    items_per_page = 28  # Number of movies per page
+    items_per_page = 28  
     num_pages = ceil(len(movies) / items_per_page)
     page = int(request.args.get('page', 1))
     start_idx = (page - 1) * items_per_page
@@ -78,6 +78,23 @@ def movies():
     movies_to_display = movies[start_idx:end_idx]
 
     return render_template('movies.html', movies=movies_to_display, page=page, num_pages=num_pages)
+
+
+
+@app.route('/contact', methods=['POST'])
+def add_contact(): 
+    conn = sqlite3.connect('Database/final.db') 
+    name = request.form['name'] 
+    email = request.form['email'] 
+    subject = request.form['subject'] 
+    message = request.form['message'] 
+    conn = sqlite3.connect('Database/Final.db') 
+    cursor = conn.cursor() 
+    cursor.execute('INSERT INTO Contact (name, email, subject, message) VALUES (?, ?, ?, ?)', (name, email, subject, message)) 
+    conn.commit() 
+    return redirect("http://127.0.0.1:5000/contact")
+
+
 
 
 
@@ -98,6 +115,7 @@ def movies_detail(id):
         reviews = cur.fetchall()
     return render_template('movie_detail.html', movie=movie, genre=genre, director=director, image=image, reviews=reviews)
 
+# Custom error handling for page not found errors
 @app.errorhandler(404)
 def page_not_found(error):
    return render_template('error.html', error='Page not found'), 404
@@ -111,22 +129,6 @@ def internal_server_error(error):
 @app.errorhandler(Exception)
 def unexpected_error(error):
    return render_template('error.html', error='Something went wrong'), 500
-
-
-@app.route('/contact', methods=['POST'])
-def add_contact(): 
-    conn = sqlite3.connect('Database/final.db') 
-    name = request.form['name'] 
-    email = request.form['email'] 
-    subject = request.form['subject'] 
-    message = request.form['message'] 
-    conn = sqlite3.connect('Database/Final.db') 
-    cursor = conn.cursor() 
-    cursor.execute('INSERT INTO Contact (name, email, subject, message) VALUES (?, ?, ?, ?)', (name, email, subject, message)) 
-    conn.commit() 
-    return redirect("http://127.0.0.1:5000/contact")
-
-
 
 
 if __name__ == "__main__":
