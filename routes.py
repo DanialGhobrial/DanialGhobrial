@@ -48,6 +48,7 @@ def add_movie_review():
         conn.commit()
     return redirect(url_for('movies_detail', id=movie_id))  # Redirect back to the movie details page
 
+
 # Route to display a list of movies and handle the search form
 @app.route('/movies', methods=['GET', 'POST'])
 def movies():

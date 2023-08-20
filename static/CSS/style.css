@@ -1,82 +1,4 @@
-/* Styles for search box */
-.search-box {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.search-box form {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  max-width: 600px;
-}
-
-.search-box label {
-  margin-right: 10px;
-  font-size: 18px;
-  color: #333;
-}
-
-.search-box input[type="text"],
-.search-box select {
-  padding: 8px;
-  margin-right: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.search-box input[type="submit"] {
-  background-color: #ffc72c;
-  color: #fff;
-  font-size: 16px;
-  padding: 8px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.search-box input[type="submit"]:hover {
-  background-color: #ffa300;
-}
-
-
-/* Navbar */
-.navbar {
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 60px;
-  margin: 20px 0;
-  font-weight: bold;
-  padding: 10px 20px;
-}
-
-/* Navbar links */
-.navbar a {
-  color: #333;
-  text-decoration: none;
-  font-size: 18px;
-  padding: 10px 20px;
-  border-radius: 5px;
-  transition: background-color 0.2s;
-}
-
-/* Navbar link hover effect */
-.navbar a:hover {
-  background-color: #f0f0f0;
-}
-
-/* Active navbar link */
-.navbar a.active {
-  background-color: #ffc72c;
-  color: #fff;
-}
-
-/* GLOBAL STYLES  */
+/* GLOBAL STYLES */
 body {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   background-color: rgb(18, 143, 101);
@@ -107,6 +29,97 @@ li p {
 h1 {
   padding: 10px;
   text-align: center;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  margin: 20px 0;
+}
+
+/* Navbar links */
+.navbar a {
+  color: #333;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+}
+
+/* Navbar link hover effect */
+.navbar a:hover {
+  background-color: #f0f0f0;
+}
+
+/* Active navbar link */
+.navbar a.active {
+  background-color: #ffc72c;
+  color: #fff;
+}
+
+/* FOOTER STYLES */
+.footer-basic {
+  padding: 40px 0;
+  background-color: #ffffff;
+  color: #4b4c4d;
+  text-align: center;
+}
+
+.footer-basic ul {
+  padding: 0;
+  list-style: none;
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+.footer-basic li {
+  padding: 0 10px;
+}
+
+.footer-basic ul a {
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.footer-basic ul a:hover {
+  opacity: 1;
+}
+
+.footer-basic .social {
+  padding-bottom: 25px;
+}
+
+.footer-basic .social > a {
+  font-size: 24px;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  display: inline-block;
+  text-align: center;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  margin: 0 8px;
+  color: inherit;
+  opacity: 0.75;
+}
+
+.footer-basic .social > a:hover {
+  opacity: 0.9;
+}
+
+.footer-basic .copyright {
+  margin-top: 15px;
+  font-size: 13px;
+  color: #aaa;
+  margin-bottom: 0;
 }
 
 /* GRID STYLES */
@@ -412,6 +425,8 @@ h1 {
   transform: translateX(-50%);
 }
 
+/* ... (Your existing CSS above) ... */
+
 /* Styles for home page header */
 .home-header {
   text-align: center;
@@ -695,64 +710,3 @@ body.error-page {
 .contact-container input[type="submit"]:hover {
   background-color: #555;
 }
-
-
-/* FOOTER STYLES */
-.footer-basic {
-  padding: 40px 0;
-  background-color: #ffffff;
-  color: #4b4c4d;
-  text-align: center;
-}
-
-.footer-basic ul {
-  padding: 0;
-  list-style: none;
-  font-size: 18px;
-  line-height: 1.6;
-  margin-bottom: 0;
-}
-
-.footer-basic li {
-  padding: 0 10px;
-}
-
-.footer-basic ul a {
-  color: inherit;
-  text-decoration: none;
-  opacity: 0.8;
-}
-
-.footer-basic ul a:hover {
-  opacity: 1;
-}
-
-.footer-basic .social {
-  padding-bottom: 25px;
-}
-
-.footer-basic .social > a {
-  font-size: 24px;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  display: inline-block;
-  text-align: center;
-  border-radius: 50%;
-  border: 1px solid #ccc;
-  margin: 0 8px;
-  color: inherit;
-  opacity: 0.75;
-}
-
-.footer-basic .social > a:hover {
-  opacity: 0.9;
-}
-
-.footer-basic .copyright {
-  margin-top: 15px;
-  font-size: 13px;
-  color: #aaa;
-  margin-bottom: 0;
-} 
-
