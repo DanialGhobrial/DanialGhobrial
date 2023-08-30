@@ -7,14 +7,24 @@
       <p>Explore our vast collection of movies. Click on any movie to see more details.</p>
     </div>
 
-    <!-- Search Box -->
-    <div class="search-box">
-      <form class="search-form" method="GET" action="/movies">
-        <label for="search_query">Search:</label>
-        <input type="text" id="search_query" name="search_query" placeholder="Search by movie title">
-        <input type="submit" value="Search">
-      </form>
-    </div>
+   <!-- Search and Genre Filter Box -->
+<div class="search-box">
+  
+  <form class="search-form" method="GET" action="/movies">
+    <label for="search_query">Search by Title:</label>
+    <input type="text" id="search_query" name="search_query" placeholder="Search by movie title">
+    
+    <label for="genre_filter">Filter by Genre:</label>
+    <select id="genre_filter" name="genre_filter">
+      <option value="">All Genres</option>
+      {% for genre in genres %}
+        <option value="{{ genre }}">{{ genre }}</option>
+      {% endfor %}
+    </select>
+    
+    <input type="submit" value="Search">
+  </form>
+</div>
 
     <!-- Movie Grid -->
     <div class="grid-container">
