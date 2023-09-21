@@ -4,9 +4,8 @@ import sqlite3
 
 app = Flask(__name__)
 
+
 # Function to get random data from the 'Movie' table
-
-
 def get_random_data():
     with sqlite3.connect("Database/Final.db") as conn:
         cursor = conn.cursor()
@@ -46,7 +45,8 @@ def add_movie_review():
         cursor.execute('INSERT INTO Review (name, rating, review, movie_id) VALUES (?, ?, ?, ?)',
                        (name, rating, review, movie_id))
         conn.commit()
-    return redirect(url_for('movies_detail', id=movie_id))  # Redirect back to the movie details page
+    return redirect(url_for('movies_detail', id=movie_id))
+# Redirect back to the movie details page because it is more logical for the user to see their review after they write it
 
 
 # Route to display a list of movies and handle the search form
@@ -83,7 +83,7 @@ def movies():
             query += ' genre LIKE ?'
             params.append(f'%{genre_filter}%')
 
-    query += ' ORDER BY title'
+    query += ' ORDER BY title'  # this is so that it looks better for the end user consideration
 
     # Execute the constructed query
     with sqlite3.connect('Database/Final.db') as conn:
@@ -92,7 +92,7 @@ def movies():
         movies = cur.fetchall()
 
     # Pagination logic
-    items_per_page = 28
+    items_per_page = 28  # 28 pages because its what looked the most visually pleasing
     num_pages = ceil(len(movies) / items_per_page)
     page = int(request.args.get('page', 1))
     start_idx = (page - 1) * items_per_page
@@ -115,6 +115,7 @@ def add_contact():
     cursor.execute('INSERT INTO Contact (name, email, subject, message) VALUES (?, ?, ?, ?)', (name, email, subject, message))
     conn.commit()
     return redirect("http://127.0.0.1:5000/contact")
+# redirect back to the contact page incase they wanted to contact again.
 
 
 # Route to display the details of a specific movie
@@ -135,19 +136,19 @@ def movies_detail(id):
     return render_template('movie_detail.html', movie=movie, genre=genre, director=director, image=image, reviews=reviews)
 
 
-# Custom error handling for page not found errors
+# Custom error handling for page not found errors for the end user consideration
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('error.html', error='Page not found'), 404
 
 
-# Custom error handling for 500 (Internal Server Error) error
+# Custom error handling for 500 (Internal Server Error) error for the end user consideration
 @app.errorhandler(500)
 def internal_server_error(error):
     return render_template('error.html', error='Internal server error'), 500
 
 
-# Custom error handling for other unexpected errors
+# Custom error handling for other unexpected errors for the end user consideration
 @app.errorhandler(Exception)
 def unexpected_error(error):
     return render_template('error.html', error='Something went wrong'), 500
